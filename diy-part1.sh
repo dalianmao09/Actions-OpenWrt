@@ -21,4 +21,4 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.co
 rm -rf package/lean/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 #git clone https://github.com/pexcn/openwrt-chinadns-ng.git package/chinadns-ng
-git clone -b luci https://github.com/w311ang/openwrt-chinadns-ng.git package/luci-app-chinadns-ng
+git clone -b luci https://github.com/pexcn/openwrt-chinadns-ng.git package/luci-app-chinadns-ng

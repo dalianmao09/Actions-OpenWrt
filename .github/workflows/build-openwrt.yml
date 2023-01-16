@@ -51,6 +51,13 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: Print Build Info
+      run: |
+        echo "Build Info:"
+        echo "Config File: $CONFIG_FILE"
+        echo "Repo URL:    $REPO_URL"
+        echo "Repo Branch: $REPO_BRANCH"
+
     - name: Checkout
       uses: actions/checkout@main
 

@@ -18,6 +18,18 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      device:
+        description: 'build device name'
+        required: false
+        default: x86
+      repo_url:
+        description: 'build openwrt repo url'
+        required: false
+        default: 'https://github.com/coolsnowwolf/lede'
+      repo_branch:
+        description: 'repo branch to use'
+        required: false
+        default: 'master'
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede

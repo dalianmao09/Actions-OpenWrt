@@ -1,44 +1,46 @@
-**English** | [中文](https://p3terx.com/archives/build-openwrt-with-github-actions.html)
+<div align="center">
+  <h1 align="center">
+     IPQ60xx||IPQ807x||MT798x 设备的 OpenWrt 固件发布页面
+  </h1>
+<a href="/LICENSE">
+    <img src="https://img.shields.io/github/license/sdf8057/cloudbuild?style=flat&a=1" alt="">
+  </a>
+  <a href="https://github.com/sdf8057/cloudbuild/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="">
+  </a><a href="https://github.com/sdf8057/cloudbuild/issues/new">
+    <img src="https://img.shields.io/badge/Issues-welcome-brightgreen.svg?style=flat">
+  </a><a href="https://github.com/sdf8057/cloudbuild/releases">
+    <img src="https://img.shields.io/github/release/sdf8057/cloudbuild.svg?style=flat">
+  </a><a href="hhttps://github.com/sdf8057/cloudbuild/releases">
+    <img src="https://img.shields.io/github/downloads/sdf8057/cloudbuild/total?style=flat&?">
+  </a>
+</div>
+<br>
 
-# Actions-OpenWrt
+## ipq6000固件特性：  
+1.添加cpu温度、频率以及npu占用率显示。  
+2.修复nat环回功能失效bug。  
+3.cpu超频至1.6ghz，跑分2w+。  
+4.为360/和目等设备添加原厂无线校准文件。  
+5.支持在线安装软件，手动安装请确保插件使用lua语言编写。  
+6.释放保留内存，可用内存增加50m。  
+7.此页面发布的ipq6000固件不集成无线功能。  
 
-[![LICENSE](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square&label=LICENSE)](https://github.com/P3TERX/Actions-OpenWrt/blob/master/LICENSE)
-![GitHub Stars](https://img.shields.io/github/stars/P3TERX/Actions-OpenWrt.svg?style=flat-square&label=Stars&logo=github)
-![GitHub Forks](https://img.shields.io/github/forks/P3TERX/Actions-OpenWrt.svg?style=flat-square&label=Forks&logo=github)
+## 集成插件列表
+luci-app-ssr-plus  
+luci-app-openclash  
+luci-app-ddns  
+luci-app-msd_lite  
+luci-app-wol  
+luci-app-upnp  
+luci-app-uhttpd  
+luci-app-cpufreq  
+luci-app-ipsec-vpnd  
+luci-app-openvpn-server  
+luci-app-zerotier  
 
-A template for building OpenWrt with GitHub Actions
+## 固件预览
+![image](https://github.com/sdf8057/cloudbuild/blob/main/pic/overview.png)
 
-## Usage
-
-- Click the [Use this template](https://github.com/P3TERX/Actions-OpenWrt/generate) button to create a new repository.
-- Generate `.config` files using [Lean's OpenWrt](https://github.com/coolsnowwolf/lede) source code. ( You can change it through environment variables in the workflow file. )
-- Push `.config` file to the GitHub repository.
-- Select `Build OpenWrt` on the Actions page.
-- Click the `Run workflow` button.
-- When the build is complete, click the `Artifacts` button in the upper right corner of the Actions page to download the binaries.
-
-## Tips
-
-- It may take a long time to create a `.config` file and build the OpenWrt firmware. Thus, before create repository to build your own firmware, you may check out if others have already built it which meet your needs by simply [search `Actions-Openwrt` in GitHub](https://github.com/search?q=Actions-openwrt).
-- Add some meta info of your built firmware (such as firmware architecture and installed packages) to your repository introduction, this will save others' time.
-
-## Credits
-
-- [Microsoft Azure](https://azure.microsoft.com)
-- [GitHub Actions](https://github.com/features/actions)
-- [OpenWrt](https://github.com/openwrt/openwrt)
-- [Lean's OpenWrt](https://github.com/coolsnowwolf/lede)
-- [tmate](https://github.com/tmate-io/tmate)
-- [mxschmitt/action-tmate](https://github.com/mxschmitt/action-tmate)
-- [csexton/debugger-action](https://github.com/csexton/debugger-action)
-- [Cowtransfer](https://cowtransfer.com)
-- [WeTransfer](https://wetransfer.com/)
-- [Mikubill/transfer](https://github.com/Mikubill/transfer)
-- [softprops/action-gh-release](https://github.com/softprops/action-gh-release)
-- [ActionsRML/delete-workflow-runs](https://github.com/ActionsRML/delete-workflow-runs)
-- [dev-drprasad/delete-older-releases](https://github.com/dev-drprasad/delete-older-releases)
-- [peter-evans/repository-dispatch](https://github.com/peter-evans/repository-dispatch)
-
-## License
-
-[MIT](https://github.com/P3TERX/Actions-OpenWrt/blob/main/LICENSE) © [**P3TERX**](https://p3terx.com)
+## 微信打赏
+![image](https://github.com/sdf8057/cloudbuild/blob/main/pic/reward_qrcode.png)

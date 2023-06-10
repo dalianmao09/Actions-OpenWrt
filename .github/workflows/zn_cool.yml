@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: ZN-COOL
+name: Build-ZN-COOL
 
 on:
   repository_dispatch:

@@ -23,9 +23,9 @@ if [ "$1" == "ZN_M2" ]; then
     git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 fi
 
-if [ "$1" == "ZN_COOL" ]; then
-    echo "Build ZN_COOL"
-    sed -i 's#PKG_SOURCE_URL.*#PKG_SOURCE_URL:=https://sources.immortalwrt.org/' package/lean/ipt2socks/Makefile
-    rm -rf extra/luci/themes/luci-theme-argon
-    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git extra/luci/themes/luci-theme-argon
-fi
+# if [ "$1" == "ZN_COOL" ]; then
+#     echo "Build ZN_COOL"
+#     sed -i 's#PKG_SOURCE_URL.*#PKG_SOURCE_URL:=https://sources.immortalwrt.org/' package/lean/ipt2socks/Makefile
+#     rm -rf extra/luci/themes/luci-theme-argon
+#     git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git extra/luci/themes/luci-theme-argon
+# fi

@@ -12,7 +12,7 @@
   编译工作流：`ipq6000`或者`zn-m2`
 
 - `AX1800`
-  `repoURL`: https://github.com/coolsnowwolf/openwrt-gl-ax1800.git
+  `repoURL`: https://github.com/dalianmao09/openwrt-gl-ax1800.git
   编译工作流：`zn_cool`
 
 - `360T7`

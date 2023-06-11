@@ -83,7 +83,7 @@ jobs:
         [ -e files ] && mv files openwrt/files
         deviceConfig=${{ github.event.inputs.device }}.config
         echo "Build Device config : $deviceConfig"
-        [ -e $deviceConfig ] && mv $deviceConfig openwrt/.config
+        [ -e $deviceConfig ] && mv ./config/$deviceConfig openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH

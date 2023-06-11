@@ -18,7 +18,14 @@
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
 if [ "$1" == "ZN_M2" ]; then
-    echo "build zn-m2"
+    echo "Build ZN_M2"
     rm -rf feeds/luci/themes/luci-theme-argon
     git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
+fi
+
+if [ "$1" == "ZN_COOL" ]; then
+    echo "Build ZN_COOL"
+    cp $GITHUB_WORKSPACE/config/ip2socks package/lean/ipt2socks/Makefile
+    rm -rf extra/luci/themes/luci-theme-argon
+    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git extra/luci/themes/luci-theme-argon
 fi

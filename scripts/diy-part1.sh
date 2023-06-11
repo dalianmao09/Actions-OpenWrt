@@ -25,7 +25,7 @@ fi
 
 if [ "$1" == "ZN_COOL" ]; then
     echo "Build ZN_COOL"
-    cp $GITHUB_WORKSPACE/config/ip2socks package/lean/ipt2socks/Makefile
+    sed -i 's#PKG_SOURCE_URL.*#PKG_SOURCE_URL:=https://sources.immortalwrt.org/ipt2socks-$(PKG_VERSION).tar.gz#' package/lean/ipt2socks/Makefile
     rm -rf extra/luci/themes/luci-theme-argon
     git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git extra/luci/themes/luci-theme-argon
 fi

@@ -26,6 +26,7 @@ env:
   CONFIG_FILE: ./config/360_t7.config
   DIY_P1_SH: ./scripts/diy-part1.sh
   DIY_P2_SH: ./scripts/diy-part2.sh
+  INIT_SH: init_build_environment.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -35,7 +36,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout
@@ -46,7 +47,8 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+        #sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+        sudo bash $INIT_SH
         sudo timedatectl set-timezone "$TZ"
         git config --global user.email "aa@163.com"
         git config --global user.name "aa"

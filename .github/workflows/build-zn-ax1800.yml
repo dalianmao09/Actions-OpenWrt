@@ -48,7 +48,7 @@ jobs:
       run: |
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         #sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
-        sudo bash $INIT_SH     
+        sudo bash $INIT_SH
         git config --global user.email "aa@163.com"
         git config --global user.name "aa"
         sudo mkdir -p /workdir

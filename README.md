@@ -7,13 +7,9 @@
   `repoURL`: https://github.com/coolsnowwolf/lede
   编译工作流：`build-device`,支持按设备编译,设备`config`文件在`config`目录下
 
-- `IPQ6000`
-  `repoURL`: https://github.com/sdf8057/ipq6000.git
-  编译工作流：`ipq6000`或者`zn-m2`
-
-- `AX1800`
-  `repoURL`: https://github.com/dalianmao09/openwrt-gl-ax1800.git
-  编译工作流：`zn_cool`
+- `zn-m2`
+  `repoURL`: https://github.com/dalianmao09/openwrt-ipq6000.git
+  编译工作流：`zn-m2`
 
 - `360T7`
   `repoURL`: https://github.com/hanwckf/immortalwrt-mt798x.git

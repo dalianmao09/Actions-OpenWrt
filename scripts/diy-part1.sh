@@ -14,11 +14,12 @@
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-echo 'src-git helloworld https://github.com/fw876/helloworld;main' >>feeds.conf.default
-#echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+# echo 'src-git helloworld https://github.com/fw876/helloworld;main' >>feeds.conf.default
+# echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
-if [ "$1" == "ZN_M2" ]; then
-    echo "Build ZN_M2"
+if [ "$1" == "LEAN" ]; then
+    echo "Build From Lean wrt"
+    echo 'src-git helloworld https://github.com/fw876/helloworld;main' >>feeds.conf.default
 #    rm -rf feeds/luci/themes/luci-theme-argon
 #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 fi

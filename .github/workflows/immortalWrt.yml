@@ -18,14 +18,18 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      branch:
+        description: 'branch to build'
+        required: false
+        default: 'openwrt-21.02'
       device:
         description: 'device to build'
         required: false
-        default: 'x86'
+        default: 'x64'
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
-  REPO_BRANCH: openwrt-23.05
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: ./feeds/feeds.iwrt
   CONFIG_FILE: ./config/x86.config
   DIY_P1_SH: ./scripts/diy-part1.sh
@@ -63,7 +67,9 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        repo_branch=${{ github.event.inputs.branch }}
+        echo "Build Device config : $repo_branch"
+        git clone $REPO_URL -b $repo_branch openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
@@ -71,7 +77,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH
+        $GITHUB_WORKSPACE/$DIY_P1_SH IWRT
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a

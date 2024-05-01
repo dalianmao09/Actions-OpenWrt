@@ -25,7 +25,7 @@ on:
       device:
         description: 'device to build'
         required: false
-        default: 'x64'
+        default: 'iwrt-x64'
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git

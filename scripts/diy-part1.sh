@@ -17,8 +17,6 @@
 # echo 'src-git helloworld https://github.com/fw876/helloworld;main' >>feeds.conf.default
 # echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
-echo "add luci-theme-design"
-git clone https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
 
 if [ "$1" == "LEAN" ]; then
     echo "Build Lean wrt"

@@ -20,7 +20,8 @@
 
 if [ "$1" == "LEAN" ]; then
     echo "Build Lean wrt"
-    echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+    #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+    echo 'src-git helloworld https://github.com/dalianmao09/helloworld' >>feeds.conf.default
 fi
 
 if [ "$1" == "IWRT" ]; then

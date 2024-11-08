@@ -22,7 +22,7 @@ if [ "$1" == "LEAN" ]; then
     echo "Build Lean wrt"
     #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
     echo 'src-git helloworld https://github.com/dalianmao09/helloworld' >>feeds.conf.default
-    sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
+    sed -i "s/^.*KERNEL_PATCHVER.*$/KERNEL_PATCHVER:=5.15/" target/linux/x86/Makefile
 fi
 
 if [ "$1" == "IWRT" ]; then

@@ -20,8 +20,8 @@
 
 if [ "$1" == "LEAN" ]; then
     echo "Build Lean wrt"
-    #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-    echo 'src-git helloworld https://github.com/dalianmao09/helloworld' >>feeds.conf.default
+    echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+    #echo 'src-git helloworld https://github.com/dalianmao09/helloworld' >>feeds.conf.default
     sed -i "s/^.*KERNEL_PATCHVER.*$/KERNEL_PATCHVER:=5.15/" target/linux/x86/Makefile
 fi
 

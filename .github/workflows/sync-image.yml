@@ -27,6 +27,9 @@ jobs:
         
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
+        #!/usr/bin/env bash
         repo_images=${{ github.event.inputs.images }}
-        chmod +x  $GITHUB_WORKSPACE/scripts/copy-images.sh
-        $GITHUB_WORKSPACE/scripts/copy-images.sh $repo_images
+       
+        skopeo copy docker://docker.io/${repo_images }docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
+        #chmod +x  $GITHUB_WORKSPACE/scripts/copy-images.sh
+        #$GITHUB_WORKSPACE/scripts/copy-images.sh $repo_images

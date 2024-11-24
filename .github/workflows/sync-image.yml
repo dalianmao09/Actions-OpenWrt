@@ -30,6 +30,6 @@ jobs:
         #!/usr/bin/env bash
         repo_images=${{ github.event.inputs.images }}
        
-        skopeo copy docker://docker.io/${repo_images }docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
+        skopeo copy docker://docker.io/${repo_images} docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
         #chmod +x  $GITHUB_WORKSPACE/scripts/copy-images.sh
         #$GITHUB_WORKSPACE/scripts/copy-images.sh $repo_images

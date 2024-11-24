@@ -1,4 +1,4 @@
-name: Sync-Images
+name: Image-Download
 on:
   repository_dispatch:
   workflow_dispatch:

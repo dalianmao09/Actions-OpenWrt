@@ -1,0 +1,37 @@
+name: Sync-Images
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      images:
+        description: 'Images To download(mult)'
+        required: true
+        default: '|'
+jobs:
+  syncimages:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repos
+      uses: actions/checkout@v3
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2.9.1
+
+    - name: Download Docker Images
+      run: |
+        #!/usr/bin/env bash
+        repo_images=${{ github.event.inputs.images }}
+        docker pull ${repo_images}
+        mkdir -p img_dir && cd img_dir
+        docker save ${repo_images} -o img.tar
+        gzip -9 img.tar
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
+    
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: images-${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}

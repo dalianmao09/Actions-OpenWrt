@@ -8,7 +8,7 @@ on:
         required: true
         default: '|'
 jobs:
-  syncimages:
+  syncImages:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repos

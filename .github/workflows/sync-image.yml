@@ -4,13 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       srcImage:
-        description: 'Source Image To Sync'
+        description: '需同步镜像,多个镜像之间以,分割'
         required: true
-        default: '-'
-      destImage:
-        description: 'Dest Image Name'
-        required: true
-        default: '-'
+        default: 'debian:latest'
 jobs:
   syncImages:
     runs-on: ubuntu-latest
@@ -31,8 +27,4 @@ jobs:
         
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
-        #!/usr/bin/env bash
-        src_image=${{ github.event.inputs.srcImage }}
-        dest_image=${{ github.event.inputs.destImage }}
-        echo "from ${src_image} to ${dest_image}"
-        skopeo copy docker://docker.io/${src_image} docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${dest_image}
+        bash $GITHUB_WORKSPACE/scripts/copy-images.sh ${{ github.event.inputs.srcImage }}

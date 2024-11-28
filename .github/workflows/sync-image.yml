@@ -3,10 +3,14 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      images:
-        description: 'Images To Sync(mult)'
+      srcImage:
+        description: 'Source Image To Sync'
         required: true
-        default: '|'
+        default: '-'
+      destImage:
+        description: 'Dest Image Name'
+        required: true
+        default: '-'
 jobs:
   syncImages:
     runs-on: ubuntu-latest
@@ -28,10 +32,9 @@ jobs:
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
         #!/usr/bin/env bash
-        repo_images=${{ github.event.inputs.images }}
+        src_image=${{ github.event.inputs.srcImage }}
+        dest_image=${{ github.event.inputs.destImage }}
         docker pull ${repo_images}
-        docker tag ${repo_images} registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
-        docker push registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
-        # skopeo copy docker://docker.io/${repo_images} docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${repo_images}
+        skopeo copy docker://docker.io/${src_image} docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${dest_image}
         #chmod +x  $GITHUB_WORKSPACE/scripts/copy-images.sh
         #$GITHUB_WORKSPACE/scripts/copy-images.sh $repo_images

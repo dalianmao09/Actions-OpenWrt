@@ -34,7 +34,6 @@ jobs:
         #!/usr/bin/env bash
         src_image=${{ github.event.inputs.srcImage }}
         dest_image=${{ github.event.inputs.destImage }}
-        docker pull ${repo_images}
         skopeo copy docker://docker.io/${src_image} docker://registry.cn-hangzhou.aliyuncs.com/dalianmao/${dest_image}
         #chmod +x  $GITHUB_WORKSPACE/scripts/copy-images.sh
         #$GITHUB_WORKSPACE/scripts/copy-images.sh $repo_images

@@ -1,0 +1,53 @@
+name: Padavan-Builder
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      repoUrl:
+        description: 'Padavan仓库地址'
+        required: true
+        default: 'https://github.com/dalianmao09/rt-n56u.git'
+      branch:
+        description: '仓库分支,默认master'
+        required: true
+        default: 'master'
+      devices:
+        description: '构建设备名称,多个以,分割'
+        required: true
+        default: 'K2P' 
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    env:
+      CI_SH: ./scripts/build-ci.sh
+      images_dir: /opt/images
+      base_dir: /opt/rt-n56u
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare environment
+        run: |
+          sudo apt update
+          sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
+          cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
+          pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
+      - name: Clone source code
+        run: |
+          repo_url=${{ github.event.inputs.repoUrl }}
+          repo_branch=${{ github.event.inputs.branch }}
+          echo "***Repo URL: $repo_url\n***Repo Branch: $repo_branch"
+          git clone $repo_url -b $repo_branch ${base_dir}
+      - name: Build Devices
+        run: |
+          cd ${base_dir}/toolchain-mipsel && dl_toolchain.sh;
+          mkdir -p ${images_dir}
+          chmod +x ${CI_SH}
+          bash $GITHUB_WORKSPACE/${CI_SH} ${{ github.event.inputs.devices }}
+      - name : Upload packages
+        if: always()
+        uses: actions/upload-artifact@master
+        with:
+          name: Padavan-packages
+          path: /opt/images

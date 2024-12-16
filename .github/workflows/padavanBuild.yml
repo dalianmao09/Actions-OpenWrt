@@ -1,7 +1,6 @@
 name: Padavan-Builder
 
 on:
-  repository_dispatch:
   workflow_dispatch:
     inputs:
       repoUrl:

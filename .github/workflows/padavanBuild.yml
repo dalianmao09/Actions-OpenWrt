@@ -35,11 +35,11 @@ jobs:
         run: |
           repo_url=${{ github.event.inputs.repoUrl }}
           repo_branch=${{ github.event.inputs.branch }}
-          echo "***Repo URL: $repo_url\n***Repo Branch: $repo_branch"
+          echo "Repo URL: $repo_url;Repo Branch: $repo_branch"
           git clone $repo_url -b $repo_branch ${base_dir}
       - name: Build Devices
         run: |
-          cd ${base_dir}/toolchain-mipsel && dl_toolchain.sh;
+          cd ${base_dir}/toolchain-mipsel && sh ./dl_toolchain.sh
           mkdir -p ${images_dir}
           chmod +x ${CI_SH}
           bash $GITHUB_WORKSPACE/${CI_SH} ${{ github.event.inputs.devices }}

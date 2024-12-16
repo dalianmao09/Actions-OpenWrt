@@ -19,7 +19,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
-    steps:
     env:
       CI_SH: ./scripts/build-ci.sh
       images_dir: /opt/images

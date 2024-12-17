@@ -14,13 +14,20 @@ on:
       devices:
         description: '构建设备名称,多个以,分割'
         required: true
-        default: 'K2P' 
-
+        default: 'K2P'
+      withKx:
+        type: choice
+        description: '是否构建KX插件'
+        options:
+        - no
+        - yes
+        
 jobs:
   build:
     runs-on: ubuntu-20.04
     env:
       CI_SH: ./scripts/build-ci.sh
+      KX_CI_SH: ./scripts/build-kx-ci.sh
       images_dir: /opt/images
       base_dir: /opt/rt-n56u
     steps:
@@ -41,7 +48,14 @@ jobs:
         run: |
           cd ${base_dir}/toolchain-mipsel && sh ./dl_toolchain.sh
           mkdir -p ${images_dir}
-          bash $GITHUB_WORKSPACE/${CI_SH} ${{ github.event.inputs.devices }}
+          if [ "${{ github.event.inputs.withKx }}" -eq "yes" ]; then
+            echo "Run $GITHUB_WORKSPACE/${KX_CI_SH}"
+            bash $GITHUB_WORKSPACE/${KX_CI_SH} ${{ github.event.inputs.devices }}
+          else
+            echo "Run $GITHUB_WORKSPACE/${CI_SH}"
+            bash $GITHUB_WORKSPACE/${CI_SH} ${{ github.event.inputs.devices }}
+          fi
+
       - name : Upload packages
         if: always()
         uses: actions/upload-artifact@master

@@ -7,9 +7,9 @@
   `repoURL`: https://github.com/coolsnowwolf/lede
   编译工作流：`build-device`,支持按设备编译,设备`config`文件在`config`目录下
 
-- `ZN-M2`
-  `repoURL`: https://github.com/dalianmao09/openwrt-ipq6000.git
-  编译工作流：`Build-ZN-M2`
+- `ZN-M2/JDC AX1800 Pro`
+  `repoURL`: https://github.com/dalianmao09/ipq6000
+  编译工作流：`Super-Builder`
 
 - `360T7`
   `repoURL`: https://github.com/hanwckf/immortalwrt-mt798x.git
@@ -17,7 +17,7 @@
   
 - `immortWrt`
   `repoURL`: https://github.com/immortalwrt/immortalwrt.git
-  编译工作流：`Build-ImmortalWrt`
+  编译工作流：`Super-Builder`
   
 - `JDC AX1800 Pro`
   `repoURL`: https://github.com/LiBwrt-op/openwrt-6.x.git
@@ -27,4 +27,5 @@
 
 TR609:
 https://github.com/padavanonly/immortalwrt
+
 mt7915_mtwifi

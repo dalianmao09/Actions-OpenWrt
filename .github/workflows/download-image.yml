@@ -6,6 +6,10 @@ on:
         description: '请填写docker镜像名称 多个用英文逗号分开'
         required: true
         default: 'alpine:latest'  # 设置默认的 Docker 镜像列表
+      docker_platform:
+        description: '镜像目标架构(amd64/arm64)'
+        required: false
+        default: 'amd64'
 
 jobs:
   image_downloader:
@@ -24,14 +28,15 @@ jobs:
       run: |
         echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
         images="${{ github.event.inputs.docker_images }}"
+        img_platform="${{ github.event.inputs.docker_platform }}"
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do
-          docker pull "${image}" --platform "linux/amd64"
-          docker save "${image}" -o "${image//\//_}-amd64.tar"
+          docker pull "${image}" --platform "linux/${img_platform}"
+          docker save "${image}" -o "${image//\//_}-dl.tar"
         done
 
     - name: Compress the TAR files
-      run: tar -cf pulled-images.tar *-amd64.tar
+      run: tar -cf pulled-images.tar *-dl.tar
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -42,4 +47,4 @@ jobs:
 
     - name: Clean up intermediate files
       run: |
-        rm *-amd64.tar
+        rm *-dl.tar

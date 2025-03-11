@@ -26,7 +26,8 @@ jobs:
 
     - name: Pull Docker Images and Package
       run: |
-        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        pulled_dir="pulled_images"
+        rm -rf ${pulled_dir} && mkdir ${pulled_dir}
         images="${{ github.event.inputs.docker_images }}"
         img_platform="${{ github.event.inputs.docker_platform }}"
         IFS=',' read -r -a image_array <<< "$images"
@@ -35,18 +36,19 @@ jobs:
           save_file="${image//\//_}-dl.tar"
           docker save "${image}" -o "${save_file}"
           gzip ${save_file}
+          mv ${save_file} ${pulled_dir}
         done
-
-    - name: Compress the TAR files
-      run: tar -cf pulled-images.tar *-dl.tar*
-
+        echo "pull and save done"
+        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "FILE_DIR=$(pulled_dir)" >> $GITHUB_ENV
+        
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: docker-images-${{ env.FILE_DATE }}
-        path: pulled-images.tar
-        retention-days: 1  # 将保留天数设置为 1 天 最多可设置90天
+        path: ${{ env.FILE_DIR }}
+        retention-days: 3  # 将保留天数设置为 1 天 最多可设置90天
 
     - name: Clean up intermediate files
       run: |
-        rm -rf *-dl.tar*
+        rm -rf pulled_images

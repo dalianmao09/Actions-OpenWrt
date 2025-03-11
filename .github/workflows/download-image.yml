@@ -36,7 +36,7 @@ jobs:
           save_file="${image//\//_}-dl.tar"
           docker save "${image}" -o "${save_file}"
           gzip ${save_file}
-          mv ${save_file} ${pulled_dir}
+          mv ${save_file}* ${pulled_dir}
         done
         echo "pull and save done"
         echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV

@@ -33,7 +33,8 @@ jobs:
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do
           docker pull "${image}" --platform "linux/${img_platform}"
-          save_file="${image//\//_}-dl.tar"
+          tmp_name="${image//\//_}"
+          save_file="${tmp_name/:/_}.tar"
           docker save "${image}" -o "${save_file}"
           gzip ${save_file}
           mv ${save_file}* ${pulled_dir}

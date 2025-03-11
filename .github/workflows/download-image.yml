@@ -49,4 +49,4 @@ jobs:
 
     - name: Clean up intermediate files
       run: |
-        rm *-dl.tar
+        rm -rf *-dl.tar*

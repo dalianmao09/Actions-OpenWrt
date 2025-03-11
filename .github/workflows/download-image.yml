@@ -32,18 +32,20 @@ jobs:
         IFS=',' read -r -a image_array <<< "$images"
         for image in "${image_array[@]}"; do
           docker pull "${image}" --platform "linux/${img_platform}"
-          docker save "${image}" -o "${image//\//_}-dl.tar"
+          save_file="${image//\//_}-dl.tar"
+          docker save "${image}" -o "${save_file}"
+          gzip ${save_file}
         done
 
     - name: Compress the TAR files
-      run: tar -cf pulled-images.tar *-dl.tar
+      run: tar -cf pulled-images.tar *-dl.tar*
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: docker-images-${{ env.FILE_DATE }}
         path: pulled-images.tar
-        retention-days: 3  # 将保留天数设置为 1 天 最多可设置90天
+        retention-days: 1  # 将保留天数设置为 1 天 最多可设置90天
 
     - name: Clean up intermediate files
       run: |

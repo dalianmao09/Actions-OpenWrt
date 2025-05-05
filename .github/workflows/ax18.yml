@@ -25,7 +25,7 @@ on:
       branch:
         description: 'Branch to Build'
         required: true
-        default: 'openwrt-21.02'
+        default: 'master'
       device:
         description: 'Device to Build'
         required: true
@@ -133,9 +133,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        echo "Build All"
-        make -j$(nproc) || make package/feeds/luci/luci-base/compile V=99 || make -j1 V=s
-        make -j$(nproc)
+        make -j$(nproc) || make -j1 V=s
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV

@@ -1,0 +1,138 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+#
+
+name: Openwrt-Downloader
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      clean:
+        description: 'Disk Clean'
+        required: false
+        default: 'true'
+      repoUrl:
+        description: 'Repo URL to Build'
+        required: true
+        default: 'https://github.com/dalianmao09/ax1800.git'
+      branch:
+        description: 'Branch to Build'
+        required: true
+        default: 'master'
+      device:
+        description: 'Device to Build'
+        required: true
+        default: 'ax18'
+      type:
+        description: 'Repo Type(LEAN or IWRT)'
+        required: false
+        default: 'AX'
+
+env:
+  REPO_BRANCH: master
+  CONFIG_FILE: ./config/x86.config
+  DIY_P1_SH: ./scripts/diy-part1.sh
+  DIY_P2_SH: ./scripts/diy-part2.sh
+  INIT_SH: init_build_environment.sh
+  UPLOAD_BIN_DIR: false
+  UPLOAD_FIRMWARE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
+  UPLOAD_RELEASE: false
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      
+    - name: Free Disk Space
+      uses: jlumbroso/free-disk-space@main
+      if: github.event.inputs.clean == 'true'
+      with:
+        # this might remove tools that are actually needed,if set to "true" but frees about 6 GB
+        tool-cache: true
+        # all of these default to true, but feel free to set to"false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        swap-storage: true
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler ecj fakeroot fastjar flex g++-multilib gawk gcc-multilib genisoimage gettext git gnutls-dev gperf haveged help2man intltool jq libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2 python3 python3-docutils python3-pip python3-ply python3-pyelftools python3-setuptools qemu-utils quilt re2c rsync scons squashfs-tools subversion swig texinfo uglifyjs unzip upx-ucl vim wget xmlto xxd zlib1g-dev
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        repo_url=${{ github.event.inputs.repoUrl }}
+        repo_branch=${{ github.event.inputs.branch }}
+        echo "Repo URL: $repo_url"
+        echo "Repo Branch: $repo_branch"
+        git clone $repo_url -b $repo_branch openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: Load custom feeds
+      run: |
+        feed_file=./feeds/${{ github.event.inputs.device }}.feeds
+        echo "Load Feed File : $feed_file"
+        [ -e $feed_file ] && mv $feed_file openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        repo_type=${{ github.event.inputs.type }}
+        echo "Repo Type: $repo_type"
+        $GITHUB_WORKSPACE/$DIY_P1_SH $repo_type
+
+    - name: Update feeds
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Install feeds
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Load custom configuration
+      run: |
+        [ -e files ] && mv files openwrt/files
+        deviceConfig=${{ github.event.inputs.device }}.config
+        echo "Build Device config : $deviceConfig"
+        [ -e ./config/$deviceConfig ] && mv ./config/$deviceConfig openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+
+    - name: Download package
+      id: package
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+        echo "FILE_DATE=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "FILE_DIR=dl" >> $GITHUB_ENV
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: docker-images-${{ env.FILE_DATE }}
+        path: ${{ env.FILE_DIR }}
+        retention-days: 3

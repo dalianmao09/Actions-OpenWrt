@@ -15,6 +15,7 @@
   `repoURL`: https://github.com/hanwckf/immortalwrt-mt798x.git
   编译工作流：`Build-360T7`
   
+  
 - `immortWrt`
   `repoURL`: https://github.com/immortalwrt/immortalwrt.git
   编译工作流：`Super-Builder`
@@ -26,7 +27,5 @@
   
 > 在使用前,先在本地检出对应仓库`Repo`,在本地创建好设备`config`文件后,推送到仓库，使用云编译
 
-TR609:
-https://github.com/padavanonly/immortalwrt
-
-mt7915_mtwifi
+- MT7981可选
+  `仓库地址`:https://github.com/padavanonly/immortalwrt-mt798x-6.6 , `2410`分支

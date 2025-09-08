@@ -34,6 +34,7 @@
 | ----------------- | ----------------------------------------------------- | -------- |
 | dlm-360t7.config  | https://github.com/padavanonly/immortalwrt-mt798x-6.6 | 2410     |
 | dlm-tr3000.config | https://github.com/padavanonly/immortalwrt-mt798x-6.6 | 2410     |
+| dlm-nokia.config  | https://github.com/padavanonly/immortalwrt-mt798x-6.6 | 2410     |
 | dlm-zn.config     | https://github.com/dalianmao09/ipq6000                | ipq6000  |
 | h-360t7.config    | https://github.com/hanwckf/immortalwrt-mt798x.git     | 21.02    |
 | iwrt-*            | https://github.com/immortalwrt/immortalwrt.git        | *        |

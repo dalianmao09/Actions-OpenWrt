@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: AX18-Builder
+name: ZN-Builder
 
 on:
   repository_dispatch:
@@ -29,7 +29,7 @@ on:
       device:
         description: 'Device to Build'
         required: true
-        default: 'ax18'
+        default: 'dlm-zn'
       type:
         description: 'Repo Type(LEAN or IWRT)'
         required: false

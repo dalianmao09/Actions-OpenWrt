@@ -29,7 +29,7 @@ on:
       device:
         description: 'Device to Build'
         required: true
-        default: 'dlm-zn'
+        default: 'ax18'
       type:
         description: 'Repo Type(LEAN or IWRT)'
         required: false

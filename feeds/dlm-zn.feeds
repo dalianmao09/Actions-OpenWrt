@@ -1,0 +1,6 @@
+src-git packages https://github.com/dalianmao09/ipq6000-packages;25.05
+src-git luci https://github.com/dalianmao09/ipq6000-luci.git;25.05 
+src-git routing https://github.com/coolsnowwolf/routing
+src-git telephony https://github.com/coolsnowwolf/telephony.git
+src-git helloworld https://github.com/dalianmao09/helloworld.git;25.05
+

@@ -13,6 +13,7 @@
 
 - `360T7`
   `repoURL`: https://github.com/hanwckf/immortalwrt-mt798x.git
+  https://github.com/padavanonly/immortalwrt-mt798x-6.6
   编译工作流：`Build-360T7`
   
 - `immortWrt`

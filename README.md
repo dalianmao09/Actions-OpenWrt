@@ -13,7 +13,6 @@
 
 - `360T7`
   `repoURL`: https://github.com/hanwckf/immortalwrt-mt798x.git
-  https://github.com/padavanonly/immortalwrt-mt798x-6.6
   编译工作流：`Build-360T7`
   
 - `immortWrt`
@@ -27,7 +26,7 @@
 > 在使用前,先在本地检出对应仓库`Repo`,在本地创建好设备`config`文件后,推送到仓库，使用云编译
 
 - MT7981可选
-  `仓库地址`:https://github.com/padavanonly/immortalwrt-mt798x-6.6 , `2410`分支
+  `仓库地址`:https://github.com/padavanonly/immortalwrt-mt798x-6.6 , `2410`、`openwrt-24.10-6.6`分支
 
 **配置文件说明**
 
